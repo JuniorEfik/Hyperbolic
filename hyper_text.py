@@ -1,6 +1,5 @@
 import requests
 from random import randint
-from pprint import pprint
 from dotenv import load_dotenv
 from os import getenv
 from colored import Fore, Style

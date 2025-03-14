@@ -13,7 +13,7 @@
 1 **Install packages**
 ``` bash 
     sudo apt update && sudo apt upgrade -y
-    sudo apt install git screen python3 python3-pip
+    sudo apt install git screen python3 python3-pip python3-venv -y
 ```
 2 **Clone Repo**
 ```
@@ -26,17 +26,20 @@
 ```
 4 **Install Dependencies**
 ```
-    pip3 install dotenv colored
+    python3 -m venv .venv
 ```
 5 **Open a new screen and start the text bot (Paste each lines one-by-one)**
 ```
     screen -S hyperText
+    source .venv/bin/activate
+    pip3 install dotenv colored requests
     python3 hyper_text.py
 ```
 Ctrl+A+D to minimize screen
 6 **Open a new screen and start the image bot (Paste each lines one-by-one)**
 ```
     screen -S hyperImage
+    source .venv/bin/activate
     python3 hyper_image.py
 ```
 Ctrl+A+D to minimize screen
