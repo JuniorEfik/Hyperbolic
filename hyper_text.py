@@ -111,5 +111,5 @@ while True:
     if response.status_code >= 400:
         print(f"{Fore.red}Error: {response.status_code}. Try checking if you have enough credits!\n{Style.reset}")
     else:
-        print(f"{Fore.blue}Answer: {response.json()["choices"][0]["message"]["content"]}\n\n{Style.reset}")
+        print(f"{Fore.blue}Answer: {response.json()['choices'][0]['message']['content']}\n\n{Style.reset}")
     rest()
