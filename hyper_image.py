@@ -3,6 +3,8 @@ from random import randint
 from pprint import pprint
 from dotenv import load_dotenv
 from os import getenv
+from rest import rest
+from colorist import red, blue
 
 load_dotenv()
 
@@ -80,4 +82,8 @@ while True:
         "model_name":models[choice - 1], 
         "prompt": random_image()
     }})
-    print("Done!\n")
+    if response.status_code >= 400:
+        red(f"Error: {response.status_code}. Try checking if you have enough credits!\n")
+    else:
+        blue("Done!\n")
+    rest()

@@ -3,6 +3,8 @@ from random import randint
 from pprint import pprint
 from dotenv import load_dotenv
 from os import getenv
+from colorist import red, blue
+from rest import rest
 
 load_dotenv()
 
@@ -98,8 +100,6 @@ def get_data(arg):
     }
     return {**data, **(models["coder"])} if arg == 1 else {**data, **(models["llama"])}
 
-    #pprint(get_data(int(model)))
-
 choice = int(input("Which model do you want to run? \n1. Coder \n2. llama\n\n..."))
 
 if choice != 1 and choice != 2:
@@ -108,4 +108,8 @@ if choice != 1 and choice != 2:
 
 while True:
     response = requests.post(url, headers=headers, json=get_data(choice))
-    print(f"Answer: {response.json()["choices"][0]["message"]["content"]}\n\n")
+    if response.status_code >= 400:
+        red(f"Error: {response.status_code}. Try checking if you have enough credits!\n")
+    else:
+        blue(f"Answer: {response.json()["choices"][0]["message"]["content"]}\n\n")
+    rest()
