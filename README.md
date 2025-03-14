@@ -26,7 +26,7 @@
 ```
 4 **Install Dependencies**
 ```
-    pip3 install dotenv color
+    pip3 install dotenv colored
 ```
 5 **Open a new screen and start the text bot (Paste each lines one-by-one)**
 ```

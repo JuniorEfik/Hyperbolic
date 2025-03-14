@@ -4,7 +4,7 @@ from pprint import pprint
 from dotenv import load_dotenv
 from os import getenv
 from rest import rest
-from colorist import red, blue
+from colored import Fore, Style
 
 load_dotenv()
 
@@ -83,7 +83,7 @@ while True:
         "prompt": random_image()
     }})
     if response.status_code >= 400:
-        red(f"Error: {response.status_code}. Try checking if you have enough credits!\n")
+        print(f"{Fore.red}Error: {response.status_code}. Try checking if you have enough credits!\n{Style.reset}")
     else:
-        blue("Done!\n")
+        print(f"{Fore.blue}Done!\n{Style.reset}")
     rest()

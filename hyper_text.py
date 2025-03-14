@@ -3,7 +3,7 @@ from random import randint
 from pprint import pprint
 from dotenv import load_dotenv
 from os import getenv
-from colorist import red, blue
+from colored import Fore, Style
 from rest import rest
 
 load_dotenv()
@@ -109,7 +109,7 @@ if choice != 1 and choice != 2:
 while True:
     response = requests.post(url, headers=headers, json=get_data(choice))
     if response.status_code >= 400:
-        red(f"Error: {response.status_code}. Try checking if you have enough credits!\n")
+        print(f"{Fore.red}Error: {response.status_code}. Try checking if you have enough credits!\n{Style.reset}")
     else:
-        blue(f"Answer: {response.json()["choices"][0]["message"]["content"]}\n\n")
+        print(f"{Fore.blue}Answer: {response.json()["choices"][0]["message"]["content"]}\n\n{Style.reset}")
     rest()
