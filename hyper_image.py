@@ -1,13 +1,7 @@
 import requests
 from random import randint
-from dotenv import load_dotenv
-from os import getenv
-from rest import rest
-from colored import Fore, Style
-
-load_dotenv()
-
-BEARER = getenv("BEARER") 
+import base64
+from io import BytesIO
 
 models = [
     "FLUX.1-dev",
@@ -18,9 +12,8 @@ models = [
 
 url = "https://api.hyperbolic.xyz/v1/image/generation"
 
-headers = {
-    "Content-Type": "application/json",
-    "Authorization": BEARER
+head = {
+    "Content-Type": "application/json"
 }
 
 images = [
@@ -67,22 +60,21 @@ data = {
 
 def random_image():
     ques = images[randint(0,len(images)-1)]
-    print(f"Imagine... {ques}\n")
     return ques
 
-choice = int(input("Which model do you want to run? \n1. FLUX.1-dev\n2. SDXL1.0-base\n3. SD1.5 \n4. SSD\n\n..."))
+def base64_to_image(base64_string):
+    try:
+        img_data = base64.b64decode(base64_string)
+        return BytesIO(img_data) 
+    except Exception as e:
+        print(f"Decoding Error: {e}")
+        return None
 
-if choice != 1 and choice != 2 and choice !=3 and choice != 4:
-    print("Invalid choice..... Exiting program now!")
-    exit(1)
-
-while True:
+def generate_image(model, token):
+    headers = {**head, **{"Authorization": token}}
+    prompt = random_image()
     response = requests.post(url, headers=headers, json={**data, **{
-        "model_name":models[choice - 1], 
-        "prompt": random_image()
+        "model_name":models[model], 
+        "prompt": prompt
     }})
-    if response.status_code >= 400:
-        print(f"{Fore.red}Error: {response.status_code}. Try checking if you have enough credits!\n{Style.reset}")
-    else:
-        print(f"{Fore.blue}Done!\n{Style.reset}")
-    rest()
+    return [prompt, base64_to_image(response.json()['images'][0]['image'])]

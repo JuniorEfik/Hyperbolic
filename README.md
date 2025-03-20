@@ -48,3 +48,11 @@ Ctrl+A+D to minimize screen
 * The bot will keep running unless the screen is force-killed or you hit Ctrl+C
 * The bot will keep retrying whenever there's an error until its get it right
 * The bot will fail to work properly if the API keys is non-existent under .env file
+
+# For Image models
+* Start here [Hyperbolic Bot]()
+* Be sure to set your tokens using /settoken. You can obtain it via [Hyperbolic API key](https://app.hyperbolic.xyz/settings) 
+* Failure to set token before starting the bot will result in "Error generating image: 'token'"
+* ATM, auto mode is functional. Manual might be enabled in future date
+* Running /stop can't stop the bot for now. Would soon find a workaround
+* Enjoy
